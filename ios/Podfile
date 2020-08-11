@@ -10,6 +10,8 @@ target 'blindchess' do
 
   pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'blindchessTests' do
     inherit! :complete
     # Pods for testing
