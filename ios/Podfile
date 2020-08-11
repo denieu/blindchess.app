@@ -8,6 +8,8 @@ target 'blindchess' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+
   target 'blindchessTests' do
     inherit! :complete
     # Pods for testing

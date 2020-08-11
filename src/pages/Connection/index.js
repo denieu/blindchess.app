@@ -1,17 +1,20 @@
+//External imports
 import React from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
+//Styles imports
 import styles from './styles.js'
 
-export default function Home() {
+export default function Connection() {
+    //Navigation Control
     const { goBack } = useNavigation();
-
     function hadleNavigateGoBack() {
         goBack();
     }
 
+    //Navigation Control
     return (
         <View style={styles.container}>
             <Text style={styles.text}> Connection </Text>
