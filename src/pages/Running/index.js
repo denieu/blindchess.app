@@ -1,5 +1,5 @@
 //External imports
-import React, { useState } from 'react';
+import React, { useState  } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
@@ -16,13 +16,26 @@ import styles from './styles.js'
 
 export default function Running() {
     //States
-    const [connectedDevice, setConnectedDevice] = useState('Não conectado')
-    const [muteButton, setMuteButton] = useState('Mutar Voz')
+    const [connectedDevice, setConnectedDevice] = useState('Não conectado');
+    const [muteButtonText, setMuteButtonText] = useState('Mutar Voz');
+    const [muteState, setMuteState] = useState(false);
 
     //Navigation Control
     const { navigate } = useNavigation();
     function hadleNavigateToConnectionPage() {
         navigate('Connection');
+    }
+
+    //MuteButton
+    function changeMuteButtonState() {
+        if (muteState === false) {
+            setMuteState(true);
+            setMuteButtonText('Desmutar Voz');
+        }
+        else if (muteState === true) {
+            setMuteState(false);
+            setMuteButtonText('Mutar Voz');
+        }
     }
 
     //JSX
@@ -46,7 +59,7 @@ export default function Running() {
 
             <View style={styles.historyMessagesView} >
                 <Text style={styles.genericText} > Histórico de Mensagens </Text>
- 
+
                 <ScrollView style={styles.historyMessagesScrollView} >
 
                 </ScrollView>
@@ -54,9 +67,10 @@ export default function Running() {
 
             <View style={styles.muteButtonView}>
                 <RectButton
+                    onPress={changeMuteButtonState}
                     style={styles.muteButton}
                 >
-                    <Text style={styles.muteButtonText} > {muteButton} </Text>
+                    <Text style={styles.muteButtonText} > {muteButtonText} </Text>
                 </RectButton>
             </View>
         </View>

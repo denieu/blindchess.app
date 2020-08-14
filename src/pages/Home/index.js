@@ -41,7 +41,7 @@ export default function Home() {
                         style={styles.button}
                     >
                         <Icon name="play" size={30} color="#000" />
-                        <Text style={styles.buttonText}>Jogar</Text>
+                        <Text style={styles.buttonText}>Iniciar</Text>
                     </RectButton>
                 </View>
 

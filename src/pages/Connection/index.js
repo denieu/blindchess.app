@@ -1,8 +1,6 @@
 //External imports
-import React from 'react';
-import { Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { RectButton } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
 
 //Internal components imports
 import PageHeader from '../../components/PageHeader/index.js';
@@ -11,10 +9,17 @@ import PageHeader from '../../components/PageHeader/index.js';
 import styles from './styles.js'
 
 export default function Connection() {
+    //const [bluetoothInit, setBluetoothInit] = useState(false);
+
+    //When pages load
+    useEffect(() => {
+        
+    }, []);
+
     //JSX
     return (
-        <View style={styles.container}>            
-            <PageHeader />            
+        <View style={styles.container}>
+            <PageHeader />
         </View>
     );
 };

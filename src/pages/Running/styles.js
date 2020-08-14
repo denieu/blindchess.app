@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    marginVertical: 10,
+    marginTop: '8.6%',
 
     borderWidth: 2,
     borderColor: '#000',
@@ -67,16 +67,15 @@ const styles = StyleSheet.create({
 
   muteButton: {
     width: '100%',
-    height: 60,
+    height: 61,
 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
 
     backgroundColor: '#FFF',
-    padding: 15,
 
-    borderRadius: 7,
+    borderRadius: 5,
   },
 
   muteButtonText: {
