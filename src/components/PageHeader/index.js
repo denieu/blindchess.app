@@ -16,9 +16,12 @@ import logoReverse from '../../assets/images/logo-reverse.png'
 
 export default function PageHeader({children}) {
     //Navigation Control
-    const { goBack } = useNavigation();
+    const { goBack, navigate } = useNavigation();
     function hadleNavigateGoBack() {
         goBack();
+    }
+    function hadleNavigateToHomePage() {
+        navigate('Home');
     }
 
     //JSX
@@ -31,9 +34,12 @@ export default function PageHeader({children}) {
                 <Icon name="arrow-left" size={30} color="#FFF" />
             </RectButton>
 
-            <View style={styles.logoView}>
+            <RectButton 
+                onPress={hadleNavigateToHomePage}
+                style={styles.logoView}
+            >
                 <Image source={logoReverse} style={styles.logo} />
-            </View>
+            </RectButton>
 
             {children}
         </View>

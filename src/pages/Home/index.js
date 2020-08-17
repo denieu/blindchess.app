@@ -1,5 +1,5 @@
 //External imports
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
@@ -8,13 +8,15 @@ import Icon from 'react-native-vector-icons/Feather';
 //Icons load
 Icon.loadFont();
 
+//Internal functions imports
+import bleInit from '../../utils/bluetoothInit.js';
+
 //Styles imports
 import styles from './styles.js'
 
 //Assets imports
 import logo from '../../assets/images/logo.png'
 import pieces from '../../assets/images/pieces.png'
-
 
 export default function Home() {
     //Navigation Control
@@ -28,6 +30,11 @@ export default function Home() {
     function hadleNavigateToSettingsPage() {
         navigate('SettingsPage');
     }
+
+    //When pages load
+    useEffect(() => {
+        bleInit();
+    }, []);
 
     //JSX
     return (
