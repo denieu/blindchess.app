@@ -12,9 +12,9 @@ export async function bleConnect(device) {
     await RNBluetoothClassic.disconnect();
   }
 
+  let status = false;
   try {
-    textToSpeech('Realizando conexão');
-    await RNBluetoothClassic.connect(device.id);
+    status = await RNBluetoothClassic.connect(device.id);
 
     await AsyncStorage.setItem('defaultDevice', JSON.stringify(device));
 

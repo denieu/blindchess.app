@@ -8,8 +8,10 @@ export default async function bleInit() {
         textToSpeech('Por favor aceite a permissão para ligar o bluetooth')
         RNBluetoothClassic.requestEnable().then(() => {
             textToSpeech('Bluetooth ligado com sucesso');
+            return true;
         }).catch(() => {
             textToSpeech('Erro ao ligar o bluetooth');
+            return false;
         });
     }
 

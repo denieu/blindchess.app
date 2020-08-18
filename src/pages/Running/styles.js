@@ -47,6 +47,20 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
   },
 
+  message: {
+    width: '100%',
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  messageText: {
+    height: '100%',
+    textAlignVertical: 'center',
+    paddingTop: 15,
+    fontSize: 18,
+  },
+
   muteButtonView: {
     width: '65%',
     height: 65,
