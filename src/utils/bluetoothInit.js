@@ -1,6 +1,6 @@
-import RNBluetoothClassic from 'react-native-bluetooth-classic';
+import RNBluetoothClassic, { BTCharsets } from 'react-native-bluetooth-classic';
 
-import textToSpeech from './textToSpeech.js';
+import textToSpeech from './ttsSpeech.js';
 
 export default async function bleInit() {
     let enabled = await RNBluetoothClassic.isEnabled();
@@ -14,6 +14,7 @@ export default async function bleInit() {
             return false;
         });
     }
-
-    return;
+    
+    RNBluetoothClassic.setEncoding(BTCharsets.UTF8);
+    return true; 
 }

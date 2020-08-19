@@ -1,7 +1,7 @@
 import RNBluetoothClassic from 'react-native-bluetooth-classic';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import textToSpeech from './textToSpeech.js';
+import ttsSpeech from './ttsSpeech.js';
 import bleInit from './bluetoothInit.js';
 
 export async function bleConnect(device) {
@@ -18,10 +18,10 @@ export async function bleConnect(device) {
 
     await AsyncStorage.setItem('defaultDevice', JSON.stringify(device));
 
-    textToSpeech('Conectado com sucesso');
+    ttsSpeech('Conectado com sucesso');
     return true;
   } catch (error) {
-    textToSpeech('Erro ao conectar');
+    ttsSpeech('Erro ao conectar');
     return false;
   }
 }

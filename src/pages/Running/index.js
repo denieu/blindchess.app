@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/Feather';
-import RNBluetoothClassic, { BTEvents, BTCharsets } from 'react-native-bluetooth-classic';
+import RNBluetoothClassic, { BTEvents } from 'react-native-bluetooth-classic';
 
 //Icons load
 Icon.loadFont();
@@ -16,7 +16,7 @@ import PageHeader from '../../components/PageHeader/index.js';
 //Internal functions imports
 import { bleConnect } from '../../utils/bluetoothConnect.js';
 import bleInit from '../../utils/bluetoothInit.js';
-import textToSpeech from '../../utils/textToSpeech.js';
+import ttsSpeech from '../../utils/ttsSpeech.js';
 
 //Styles imports
 import styles from './styles.js'
@@ -68,20 +68,20 @@ export default function Running() {
 
     //Verify ble state interval - run every 5000ms
     async function verifyBleState() {
-        let isEnabled = await RNBluetoothClassic.isEnabled();
+        console.log('Run in interval');
+        let isConnected = await RNBluetoothClassic.isConnected();
+        if (!isConnected) {
+            let isEnabled = await RNBluetoothClassic.isEnabled();
 
-        if (!isEnabled) {
-            setConnectedDevice('Bluetooth desligado');
+            if (!isEnabled) {
+                setConnectedDevice('Bluetooth desligado');
 
-            let enableStatus = bleInit();
-            if (enableStatus === true) {
-                setConnectedDevice('Não conectado');
+                let enableStatus = bleInit();
+                if (enableStatus === true) {
+                    setConnectedDevice('Não conectado');
+                }
             }
-        }
-        else {
-            let isConnected = await RNBluetoothClassic.isConnected();
-
-            if (!isConnected) {
+            else {
                 let connectStatus = await connectToDefaultDevice();
 
                 if (connectStatus === true) {
@@ -91,58 +91,18 @@ export default function Running() {
                     setConnectedDevice('Não conectado');
                 }
             }
-            else {
-                await updateConnectedDevice(true);
-            }
+        }
+        else {
+            await updateConnectedDevice(true);
         }
     }
 
     //On bluetooth read data
-    async function onRead(data) {
-        console.log(data);
+    function onRead(data) {
+        console.log('speak');
+        setMessages([...messages, data.data]);
 
-        let newMessages = messages;
-        newMessages.push(data.data);
-        setMessages(newMessages);
-
-        let muteState = await AsyncStorage.getItem('muteState');
-        muteState = JSON.parse(muteState);
-        if (muteState === false) {
-            await textToSpeech(data.data);
-        }
-    }
-
-    //When pages load
-    useEffect(() => {
-        RNBluetoothClassic.setEncoding(BTCharsets.UTF8);
-
-        verifyBleState();
-
-        let verifyState = setInterval(async () => {
-            await verifyBleState();
-        }, 5000);
-
-        RNBluetoothClassic.addListener(
-            BTEvents.READ,
-            data => {
-                onRead(data);
-            }
-        );
-
-        AsyncStorage.setItem('muteState', JSON.stringify(false));
-
-        return () => {
-            clearInterval(verifyState);
-        }
-    }, [messages]);
-
-    //When playes need repeat a message
-    async function repeatMessage(message) {
-        let muteState = await AsyncStorage.getItem('muteState');
-        muteState = JSON.parse(muteState);
-        if (muteState === false) {
-            await textToSpeech(message);
-        }
+        ttsSpeech(data.data);
     }
 
     //MuteButton
@@ -157,6 +117,55 @@ export default function Running() {
         else {
             AsyncStorage.setItem('muteState', JSON.stringify(true));
             setMuteButtonText('Desmutar Voz');
+        }
+    }
+    async function updateMuteButtonState() {
+        let muteState = await AsyncStorage.getItem('muteState');
+        muteState = JSON.parse(muteState);
+
+        if (muteState === false) {
+            setMuteButtonText('Mutar Voz');
+        }
+        else if (muteState === true) {
+            setMuteButtonText('Desmutar Voz');
+        }
+        else {
+            await AsyncStorage.setItem('muteState', JSON.stringify(false));
+            setMuteButtonText('Mutar Voz');
+        }
+    }
+
+    //When pages load
+    useEffect(() => {
+        //Autoconnect running in interval
+        let verifyState = setInterval(async () => {
+            await verifyBleState();
+        }, 5000);
+
+        //Event run on bluetooth read data
+        let readEvent = RNBluetoothClassic.addListener(
+            BTEvents.READ,
+            data => {
+                onRead(data);
+            }
+        );
+
+        //Verify async storage and update button
+        updateMuteButtonState();
+
+        //Run whe component umount
+        return () => {
+            readEvent.remove();
+            clearInterval(verifyState);
+        }
+    }, [messages]);
+
+    //When playes need repeat a message
+    async function repeatMessage(message) {
+        let muteState = await AsyncStorage.getItem('muteState');
+        muteState = JSON.parse(muteState);
+        if (muteState === false) {
+            await ttsSpeech(message);
         }
     }
 

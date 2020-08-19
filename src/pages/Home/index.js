@@ -10,6 +10,7 @@ Icon.loadFont();
 
 //Internal functions imports
 import bleInit from '../../utils/bluetoothInit.js';
+import ttsInit from '../../utils/ttsInit.js';
 
 //Styles imports
 import styles from './styles.js'
@@ -34,6 +35,7 @@ export default function Home() {
     //When pages load
     useEffect(() => {
         bleInit();
+        ttsInit();
     }, []);
 
     //JSX
