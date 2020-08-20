@@ -11,10 +11,10 @@ export default async function ttsInit() {
     });
 
     //BCP-47 language code (e.g. 'en-US')
-    await Tts.setDefaultLanguage('pt-BR'); 
+    await Tts.setDefaultLanguage('en-US'); 
 
     //Speed - 0.01 ~ 0.99
-    Tts.setDefaultRate(0.99); 
+    Tts.setDefaultRate(0.5); 
 
     //Event stop speak
     Tts.addEventListener('tts-finish', () => {

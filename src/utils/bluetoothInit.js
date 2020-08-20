@@ -5,12 +5,12 @@ import textToSpeech from './ttsSpeech.js';
 export default async function bleInit() {
     let enabled = await RNBluetoothClassic.isEnabled();
     if (!enabled) {
-        textToSpeech('Por favor aceite a permissão para ligar o bluetooth')
+        textToSpeech('Please accept permission to turn on bluetooth')
         RNBluetoothClassic.requestEnable().then(() => {
-            textToSpeech('Bluetooth ligado com sucesso');
+            textToSpeech('Bluetooth successfully turned on');
             return true;
         }).catch(() => {
-            textToSpeech('Erro ao ligar o bluetooth');
+            textToSpeech('Bluetooth turn on error');
             return false;
         });
     }

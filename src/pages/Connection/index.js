@@ -50,13 +50,13 @@ export default function Connection() {
             <PageHeader />
 
             <View style={styles.title}>
-                <Text style={styles.titleText}>Toque em um dispositivo para conectar</Text>
+                <Text style={styles.titleText}>Touch a device to connect</Text>
             </View>
 
 
             <View style={styles.devices}>
                 <View style={styles.listTitles}>
-                    <Text style={styles.text}>Nome</Text>
+                    <Text style={styles.text}>Name</Text>
                     <Text style={styles.text}>MAC</Text>
                 </View>
 

@@ -23,8 +23,8 @@ import styles from './styles.js'
 
 export default function Running() {
     //States
-    const [connectedDevice, setConnectedDevice] = useState('Não conectado');
-    const [muteButtonText, setMuteButtonText] = useState('Mutar Voz');
+    const [connectedDevice, setConnectedDevice] = useState('Not connected');
+    const [muteButtonText, setMuteButtonText] = useState('Mute Voice');
     const [messages, setMessages] = useState([]);
 
     //Navigation Control
@@ -46,7 +46,7 @@ export default function Running() {
             return defaultDevice;
         }
         else {
-            setConnectedDevice('Não conectado');
+            setConnectedDevice('Not connected');
             return false;
         }
     }
@@ -74,11 +74,11 @@ export default function Running() {
             let isEnabled = await RNBluetoothClassic.isEnabled();
 
             if (!isEnabled) {
-                setConnectedDevice('Bluetooth desligado');
+                setConnectedDevice('Bluetooth off');
 
                 let enableStatus = bleInit();
                 if (enableStatus === true) {
-                    setConnectedDevice('Não conectado');
+                    setConnectedDevice('Not connected');
                 }
             }
             else {
@@ -88,7 +88,7 @@ export default function Running() {
                     await updateConnectedDevice(true);
                 }
                 else {
-                    setConnectedDevice('Não conectado');
+                    setConnectedDevice('Not connected');
                 }
             }
         }
@@ -112,11 +112,11 @@ export default function Running() {
 
         if (muteState !== false) {
             AsyncStorage.setItem('muteState', JSON.stringify(false));
-            setMuteButtonText('Mutar Voz');
+            setMuteButtonText('Mute Voice');
         }
         else {
             AsyncStorage.setItem('muteState', JSON.stringify(true));
-            setMuteButtonText('Desmutar Voz');
+            setMuteButtonText('Unmute Voice');
         }
     }
     async function updateMuteButtonState() {
@@ -124,14 +124,14 @@ export default function Running() {
         muteState = JSON.parse(muteState);
 
         if (muteState === false) {
-            setMuteButtonText('Mutar Voz');
+            setMuteButtonText('Mute Voice');
         }
         else if (muteState === true) {
-            setMuteButtonText('Desmutar Voz');
+            setMuteButtonText('Unmute Voice');
         }
         else {
             await AsyncStorage.setItem('muteState', JSON.stringify(false));
-            setMuteButtonText('Mutar Voz');
+            setMuteButtonText('Mute Voice');
         }
     }
 
@@ -183,13 +183,13 @@ export default function Running() {
 
             <View style={styles.connectedDeviceView} >
                 <Text style={styles.genericText} >
-                    Dispositivo Conectado:
+                    Connected device:
                     <Text style={styles.connectedDeviceText} >{' '}{connectedDevice}</Text>
                 </Text>
             </View>
 
             <View style={styles.historyMessagesView} >
-                <Text style={styles.genericText} > Histórico de Mensagens </Text>
+                <Text style={styles.genericText} > Messages History </Text>
 
                 <ScrollView style={styles.historyMessagesScrollView} >
                     {

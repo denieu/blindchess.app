@@ -18,10 +18,10 @@ export async function bleConnect(device) {
 
     await AsyncStorage.setItem('defaultDevice', JSON.stringify(device));
 
-    ttsSpeech('Conectado com sucesso');
+    ttsSpeech('Successfully connected');
     return true;
   } catch (error) {
-    ttsSpeech('Erro ao conectar');
+    ttsSpeech('Error on connect');
     return false;
   }
 }

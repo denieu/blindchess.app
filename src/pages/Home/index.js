@@ -50,7 +50,7 @@ export default function Home() {
                         style={styles.button}
                     >
                         <Icon name="play" size={30} color="#000" />
-                        <Text style={styles.buttonText}>Iniciar</Text>
+                        <Text style={styles.buttonText}>Start</Text>
                     </RectButton>
                 </View>
 
@@ -60,7 +60,7 @@ export default function Home() {
                         style={styles.button}
                     >
                         <Icon name="bluetooth" size={30} color="#000" />
-                        <Text style={styles.buttonText}>Conectar</Text>
+                        <Text style={styles.buttonText}>Connect</Text>
                     </RectButton>
                 </View>
 
@@ -70,7 +70,7 @@ export default function Home() {
                         style={styles.button}
                     >
                         <Icon name="settings" size={30} color="#000" />
-                        <Text style={styles.buttonText}>Configurações</Text>
+                        <Text style={styles.buttonText}>Settings</Text>
                     </RectButton>
                 </View>
             </View>
